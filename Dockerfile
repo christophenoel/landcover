@@ -58,4 +58,6 @@ ENV PATH=/opt/OTB-${OTB_MAJ_VER}.${OTB_MIN_VER}.${OTB_POINT_VER}-Linux64/bin:/op
 # Prepare processor script
 RUN mkdir -p /home/worker/processor
 COPY * /home/worker/processor/
+RUN ["chmod", "-R", "a+wr", "/home/worker/processor"]
+RUN ["chmod", "a+x", "/home/worker/processor/workflow.sh"]
 ENTRYPOINT ["/home/worker/processor/workflow.sh"]
