@@ -20,12 +20,12 @@ mkdir -p ${OUT_DIR}/{result,model,confusionMatrix}
 
 
 # Input params
-IMAGE_INPUT=${Image}
-EPSG="${EPSGCode}"
-AOI="${aoi}"
+IMAGE_INPUT=${WPS_INPUT_Image}
+EPSG="${WPS_INPUT_EPSGCode}"
+AOI="${WPS_INPUT_aoi}"
 TRAINING_SHAPEFILE=$(ls -1 ${IN_DIR}/refDataShapefile/*.shp | head -1)
-SHAPEFILE_ATTR="${shapefileAttribute}"
-TARGET_RESOLUTION="${targetResolution}"
+SHAPEFILE_ATTR="Class"
+TARGET_RESOLUTION="${WPS_INPUT_targetResolution}"
 
 # Calculated input params
 UTM_ZONE=$(${EPSG2UTM} ${EPSG#EPSG:})
@@ -75,4 +75,4 @@ time otbcli_TrainImagesClassifier \
 time otbcli_ImageClassifier \
  -in ${TRAINING_INPUT} \
  -model ${TRAINING_OUTPUT_CLASSIFICATION_MODEL} \
- -out ${OUTPUT_FILE}
+ -out ${WPS_OUTPUT_IMAGERESULT}
