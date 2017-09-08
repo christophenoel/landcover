@@ -17,9 +17,11 @@ S2PRODUCTZONES="python ${WORKFLOW}/s2ProductZones.py"
 mkdir -p ${PROC_DIR}
 mkdir -p ${OUT_DIR}/{result,model,confusionMatrix}
 
+
+
 # Input params
-source ${WPS_PROPS}
-EPSG="${crs}"
+IMAGE_INPUT=${Image}
+EPSG="${EPSGCode}"
 AOI="${aoi}"
 TRAINING_SHAPEFILE=$(ls -1 ${IN_DIR}/refDataShapefile/*.shp | head -1)
 SHAPEFILE_ATTR="${shapefileAttribute}"
@@ -51,7 +53,7 @@ fi
 
 # Preprocess S2 input: extract correct bands and resample
 I=0
-for IN in ${IN_DIR}/inputfile; do
+for IN in ${IMAGE_INPUT}; do
     I=$((I+1))
     INPUT_FILE=$(ls -1 ${IN}/*.xml | grep -v 'INSPIRE.xml' | head -1)
     time gpt ${S2_PREPROCESS} -Pifile=${INPUT_FILE} -Paoi="${AOI}" -PtargetResolution="${TARGET_RESOLUTION}" -Pofile="${PREPROCESSED_PREFIX}-${I}.tif"
