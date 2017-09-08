@@ -72,7 +72,10 @@ time otbcli_TrainImagesClassifier \
  -io.out ${TRAINING_OUTPUT_CLASSIFICATION_MODEL} -io.confmatout ${TRAINING_OUTPUT_CONFUSION_MATRIX_CSV}
 
 # Final calculation using trained model
+mkdir /result
 time otbcli_ImageClassifier \
  -in ${TRAINING_INPUT} \
  -model ${TRAINING_OUTPUT_CLASSIFICATION_MODEL} \
- -out ${WPS_OUTPUT_IMAGERESULT}
+ -out /result
+# move result file
+mv $(readlink -f /result/*.tif | head -1) ${WPS_OUTPUT_IMAGE_RESULT}
