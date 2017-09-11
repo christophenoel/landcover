@@ -20,12 +20,12 @@ mkdir -p ${OUT_DIR}/{result,model,confusionMatrix}
 
 
 # Input params
-IMAGE_INPUT=${WPS_INPUT_Image}
-EPSG="${WPS_INPUT_EPSGCode}"
-AOI="${WPS_INPUT_aoi}"
+IMAGE_INPUT=${WPS_INPUT_IMAGE}
+EPSG="${WPS_INPUT_EPSGCODE}"
+AOI="${WPS_INPUT_AREAOFINTEREST}"
 TRAINING_SHAPEFILE=$(ls -1 ${IN_DIR}/refDataShapefile/*.shp | head -1)
 SHAPEFILE_ATTR="Class"
-TARGET_RESOLUTION="${WPS_INPUT_targetResolution}"
+TARGET_RESOLUTION="${WPS_INPUT_TARGETRESOLUTION}"
 
 # Calculated input params
 UTM_ZONE=$(${EPSG2UTM} ${EPSG#EPSG:})
