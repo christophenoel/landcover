@@ -76,6 +76,7 @@ mkdir /result
 time otbcli_ImageClassifier \
  -in ${TRAINING_INPUT} \
  -model ${TRAINING_OUTPUT_CLASSIFICATION_MODEL} \
- -out /result
+ -out /result/output.tif"
 # move result file
-mv $(readlink -f /result/*.tif | head -1) ${WPS_OUTPUT_IMAGE_RESULT}
+#mv $(readlink -f /result/*.tif | head -1) ${WPS_OUTPUT_IMAGE_RESULT}
+mv /result/output.tif ${WPS_OUTPUT_IMAGE_RESULT}
