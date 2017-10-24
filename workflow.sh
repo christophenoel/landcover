@@ -17,10 +17,7 @@ S2PRODUCTZONES="python ${WORKFLOW}/s2ProductZones.py"
 mkdir -p ${PROC_DIR}
 mkdir -p ${OUT_DIR}/{result,model,confusionMatrix}
 
-
-
 # Input params
-IMAGE_INPUT=${WPS_INPUT_IMAGE}
 EPSG="${WPS_INPUT_EPSGCODE}"
 AOI="${WPS_INPUT_AREAOFINTEREST}"
 TRAINING_SHAPEFILE=$(ls -1 ${WPS_INPUT_REFERENCEDATA}/*.shp | head -1)
@@ -53,7 +50,7 @@ fi
 
 # Preprocess S2 input: extract correct bands and resample
 I=0
-for IN in ${IMAGE_INPUT}; do
+for IN in ${WPS_INPUT_IMAGE}; do
     I=$((I+1))
     INPUT_FILE=$(ls -1 ${IN}/*.xml | grep -v 'INSPIRE.xml' | head -1)
     time gpt ${S2_PREPROCESS} -Pifile=${INPUT_FILE} -Paoi="${AOI}" -PtargetResolution="${TARGET_RESOLUTION}" -Pofile="${PREPROCESSED_PREFIX}-${I}.tif"
@@ -77,6 +74,4 @@ time otbcli_ImageClassifier \
  -in ${TRAINING_INPUT} \
  -model ${TRAINING_OUTPUT_CLASSIFICATION_MODEL} \
  -out /result/output.tif
-# move result file
-#mv $(readlink -f /result/*.tif | head -1) ${WPS_OUTPUT_IMAGE_RESULT}
 mv /result/output.tif ${WPS_OUTPUT_IMAGE_RESULT}
